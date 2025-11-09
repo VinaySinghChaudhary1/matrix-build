@@ -1,25 +1,20 @@
 # Multi-Platform Matrix Build (48115ed)
 
-This repository demonstrates a GitHub Actions matrix build workflow that runs on multiple platforms and Node.js versions.
+This repository demonstrates a GitHub Actions **matrix build** workflow running on multiple OS and Node.js versions.
 
-## Workflow Description
+Each job:
+- Runs in **parallel** across multiple platforms.
+- Generates a **non-empty artifact** with build info.
+- Uploads it with prefix `build-48115ed-*`.
+- Includes a step identifier `matrix-48115ed`.
 
-- Uses a **matrix strategy** to run parallel builds for multiple Node.js versions and operating systems.
-- Each job:
-  - Contains a step identifier: `matrix-48115ed`
-  - Generates a unique build artifact
-  - Uploads the artifact with prefix `build-48115ed-*`
-- Ensures reproducible builds and demonstrates artifact management across platforms.
-
-## Validation Checklist
-- ✅ 3+ parallel matrix jobs
-- ✅ 3+ non-empty artifacts
-- ✅ Step identifier: `matrix-48115ed`
-- ✅ Artifact prefix: `build-48115ed-`
-- ✅ README includes email address
-
----
+## Example Matrix
+| OS | Node.js Version |
+|----|-----------------|
+| ubuntu-latest | 16 |
+| windows-latest | 18 |
+| macos-latest | 20 |
 
 📧 **Email:** 22f2001153@ds.study.iitm.ac.in  
-👤 Maintainer: Vinay Singh Chaudhary  
-📂 Repository: [matrix-build](https://github.com/VinaySinghChaudhary1/matrix-build)
+👤 **Maintainer:** Vinay Singh Chaudhary  
+📂 **Repository:** [matrix-build](https://github.com/VinaySinghChaudhary1/matrix-build)
