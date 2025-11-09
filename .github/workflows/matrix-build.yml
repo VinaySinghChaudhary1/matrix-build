@@ -1,0 +1,47 @@
+name: Multi-Platform Matrix Build (48115ed)
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    name: Build for Node v${{ matrix.node-version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [14, 16, 18]
+        exclude:
+          - os: macos-latest
+            node-version: 14
+          - os: windows-latest
+            node-version: 18
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: matrix-48115ed
+        run: |
+          echo "Building for Node.js version: ${{ matrix.node-version }} on OS: ${{ matrix.os }}"
+
+      - name: Generate build artifact
+        run: |
+          mkdir -p build
+          echo "Build output for Node v${{ matrix.node-version }} on ${{ matrix.os }}" > build/output-${{ matrix.os }}-${{ matrix.node-version }}.txt
+          echo "Timestamp: $(date)" >> build/output-${{ matrix.os }}-${{ matrix.node-version }}.txt
+          echo "Environment: ${{ runner.os }}" >> build/output-${{ matrix.os }}-${{ matrix.node-version }}.txt
+          echo "Done ✅" >> build/output-${{ matrix.os }}-${{ matrix.node-version }}.txt
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-48115ed-${{ matrix.os }}-v${{ matrix.node-version }}
+          path: build/output-${{ matrix.os }}-${{ matrix.node-version }}.txt
